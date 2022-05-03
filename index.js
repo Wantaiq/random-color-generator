@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import pkg from 'enquirer';
 
-const { Select } = pkg;
+// const { Select } = pkg;
 
 const box = (color) => [
   `
@@ -71,13 +71,13 @@ async function handleAsk() {
     color: '',
     saturation: '',
   };
-  const promptColor = new Select({
+  const promptColor = new pkg.Select({
     name: 'color',
     message: 'Choose a color',
     choices: ['red', 'green', 'blue'],
   });
 
-  const promptSaturation = new Select({
+  const promptSaturation = new pkg.Select({
     name: 'saturation',
     message: 'Would you like your color to be dark or light?',
     choices: ['light', 'dark'],
