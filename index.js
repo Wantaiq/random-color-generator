@@ -5,18 +5,18 @@ const { Select } = pkg;
 
 const box = (color) => [
   `
-  ##############################
-  ##############################
-  ##############################
-  ####                      ####
-  ####       ${color}        ####
-  ####                      ####
-  ##############################
-  ##############################
-  ##############################
+  ################################
+  ################################
+  ################################
+  ####                        ####
+  ####        ${color}         ####
+  ####                        ####
+  ################################
+  ################################
+  ################################
   `,
 ];
-const randomColor = '#' + Math.floor(Math.random() * 16777215);
+const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 let chosenHueColor = process.argv[3];
 let chosenSaturation = process.argv[2];
 
@@ -46,8 +46,6 @@ function renderLuminousColor() {
   } else if (chosenSaturation === 'light' && chosenHueColor === 'green') {
     color = '#90EE90';
     console.log(chalk.hex(color)(box(color)));
-  } else {
-    console.log(`Ooops! We don't have that color`);
   }
 }
 function renderHueColor() {
@@ -60,7 +58,6 @@ function renderHueColor() {
   } else if (process.argv.includes('ask')) {
     return;
   }
-  console.log(`Ooops! We don't have that color`);
 }
 
 if (process.argv.length <= 3) {
