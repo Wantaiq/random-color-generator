@@ -35,7 +35,7 @@ $node index.js light red
 
 ```
 
-- When the user inputs "ask", it will start the prompt in which user can choose a color and the saturation of the color.
+- When the user inputs `bash ask`, it will start the prompt in which user can choose a color and the saturation of the color.
 
 ```bash
 $node index.js ask
