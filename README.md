@@ -18,7 +18,7 @@ $ node index.js
   ################################
 ```
 
-- When the user inputs a hue and saturation, a block with that color will be printed.
+- When the user inputs a hue and saturation request, a block with that color will be printed.
 
 ```bash
 $node index.js light red
