@@ -18,7 +18,7 @@ const box = (color) => [
 ];
 const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 let chosenHueColor = process.argv[3];
-let chosenSaturation = process.argv[2];
+let chosenLum = process.argv[2];
 
 function renderRandomColor() {
   console.log(chalk.hex(randomColor)(box(randomColor)));
@@ -28,27 +28,24 @@ function renderRandomColor() {
 
 function renderLuminousColor() {
   let color;
-  if (chosenSaturation === 'dark' && chosenHueColor === 'blue') {
+  if (chosenLum === 'dark' && chosenHueColor === 'blue') {
     color = '#00008B';
-    console.log(chalk.hex(color)(box(color)));
-  } else if (chosenSaturation === 'light' && chosenHueColor === 'blue') {
+  } else if (chosenLum === 'light' && chosenHueColor === 'blue') {
     color = '#ADD8E6';
-    console.log(chalk.hex(color)(box(color)));
-  } else if (chosenSaturation === 'dark' && chosenHueColor === 'red') {
+  } else if (chosenLum === 'dark' && chosenHueColor === 'red') {
     color = '#990000';
-    console.log(chalk.hex(color)(box(color)));
-  } else if (chosenSaturation === 'light' && chosenHueColor === 'red') {
+  } else if (chosenLum === 'light' && chosenHueColor === 'red') {
     color = '#FF7F7F';
-    console.log(chalk.hex(color)(box(color)));
-  } else if (chosenSaturation === 'dark' && chosenHueColor === 'green') {
+  } else if (chosenLum === 'dark' && chosenHueColor === 'green') {
     color = '#013220';
-    console.log(chalk.hex(color)(box(color)));
-  } else if (chosenSaturation === 'light' && chosenHueColor === 'green') {
+  } else if (chosenLum === 'light' && chosenHueColor === 'green') {
     color = '#90EE90';
-    console.log(chalk.hex(color)(box(color)));
   }
+
+  console.log(chalk.hex(color)(box(color)));
 }
 function renderHueColor() {
+  chosenHueColor = process.argv[2];
   if (chosenHueColor === 'red') {
     console.log(chalk.hex('#FF0000')(box('#FF0000')));
   } else if (chosenHueColor === 'blue') {
@@ -69,7 +66,7 @@ if (process.argv.length <= 3) {
 async function handleAsk() {
   const promptAnswers = {
     color: '',
-    saturation: '',
+    lum: '',
   };
   const promptColor = new pkg.Select({
     name: 'color',
@@ -77,20 +74,20 @@ async function handleAsk() {
     choices: ['red', 'green', 'blue'],
   });
 
-  const promptSaturation = new pkg.Select({
-    name: 'saturation',
+  const promptLum = new pkg.Select({
+    name: 'lum',
     message: 'Would you like your color to be dark or light?',
     choices: ['light', 'dark'],
   });
 
   const promptColorAnswer = await promptColor.run();
-  const saturationAnswer = await promptSaturation.run();
+  const lumAnswer = await promptLum.run();
   promptAnswers.color = promptColorAnswer;
-  promptAnswers.saturation = saturationAnswer;
+  promptAnswers.lum = lumAnswer;
   console.log(promptAnswers);
 
   chosenHueColor = promptAnswers.color;
-  chosenSaturation = promptAnswers.saturation;
+  chosenLum = promptAnswers.lum;
 
   renderLuminousColor();
 }
