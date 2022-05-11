@@ -1,8 +1,6 @@
 import chalk from 'chalk';
 import pkg from 'enquirer';
 
-// const { Select } = pkg;
-
 const box = (color) => [
   `
   ################################
