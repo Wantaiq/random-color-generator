@@ -16,7 +16,7 @@ const box = (color) => [
 ];
 const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 let chosenHueColor = process.argv[3];
-let chosenLum = process.argv[2];
+let chosenLuminosity = process.argv[2];
 
 function renderRandomColor() {
   console.log(chalk.hex(randomColor)(box(randomColor)));
@@ -26,17 +26,17 @@ function renderRandomColor() {
 
 function renderLuminousColor() {
   let color;
-  if (chosenLum === 'dark' && chosenHueColor === 'blue') {
+  if (chosenLuminosity === 'dark' && chosenHueColor === 'blue') {
     color = '#00008B';
-  } else if (chosenLum === 'light' && chosenHueColor === 'blue') {
+  } else if (chosenLuminosity === 'light' && chosenHueColor === 'blue') {
     color = '#ADD8E6';
-  } else if (chosenLum === 'dark' && chosenHueColor === 'red') {
+  } else if (chosenLuminosity === 'dark' && chosenHueColor === 'red') {
     color = '#990000';
-  } else if (chosenLum === 'light' && chosenHueColor === 'red') {
+  } else if (chosenLuminosity === 'light' && chosenHueColor === 'red') {
     color = '#FF7F7F';
-  } else if (chosenLum === 'dark' && chosenHueColor === 'green') {
+  } else if (chosenLuminosity === 'dark' && chosenHueColor === 'green') {
     color = '#013220';
-  } else if (chosenLum === 'light' && chosenHueColor === 'green') {
+  } else if (chosenLuminosity === 'light' && chosenHueColor === 'green') {
     color = '#90EE90';
   }
 
@@ -44,15 +44,17 @@ function renderLuminousColor() {
 }
 function renderHueColor() {
   chosenHueColor = process.argv[2];
+  let chosenColorHexCode;
   if (chosenHueColor === 'red') {
-    console.log(chalk.hex('#FF0000')(box('#FF0000')));
+    chosenColorHexCode = '#FF0000';
   } else if (chosenHueColor === 'blue') {
-    console.log(chalk.hex('#0000FF')(box('#0000FF')));
+    chosenColorHexCode = '#0000FF';
   } else if (chosenHueColor === 'green') {
-    console.log(chalk.hex('#00FF00')(box('#00FF00')));
+    chosenColorHexCode = '#00FF00';
   } else if (process.argv.includes('ask')) {
     return;
   }
+  console.log(chalk.hex(chosenColorHexCode)(box(chosenColorHexCode)));
 }
 
 if (process.argv.length <= 3) {
@@ -85,7 +87,7 @@ async function handleAsk() {
   console.log(promptAnswers);
 
   chosenHueColor = promptAnswers.color;
-  chosenLum = promptAnswers.lum;
+  chosenLuminosity = promptAnswers.lum;
 
   renderLuminousColor();
 }
