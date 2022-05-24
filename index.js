@@ -15,14 +15,12 @@ const box = (color) => [
   `,
 ];
 const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-let chosenHueColor = process.argv[3];
-let chosenLuminosity = process.argv[2];
+let chosenHueColor = process.argv[2];
+let chosenLuminosity = process.argv[3];
 
 function renderRandomColor() {
   console.log(chalk.hex(randomColor)(box(randomColor)));
 }
-
-!process.argv[2] && renderRandomColor();
 
 function renderLuminousColor() {
   let color;
@@ -57,16 +55,10 @@ function renderHueColor() {
   console.log(chalk.hex(chosenColorHexCode)(box(chosenColorHexCode)));
 }
 
-if (process.argv.length <= 3) {
-  renderHueColor();
-} else {
-  renderLuminousColor();
-}
-
-async function handleAsk() {
+async function handleColorPrompt() {
   const promptAnswers = {
     color: '',
-    lum: '',
+    luminosity: '',
   };
   const promptColor = new pkg.Select({
     name: 'color',
@@ -75,21 +67,30 @@ async function handleAsk() {
   });
 
   const promptLum = new pkg.Select({
-    name: 'lum',
+    name: 'luminosity',
     message: 'Would you like your color to be dark or light?',
     choices: ['light', 'dark'],
   });
 
   const promptColorAnswer = await promptColor.run();
-  const lumAnswer = await promptLum.run();
+  const luminosityAnswer = await promptLum.run();
   promptAnswers.color = promptColorAnswer;
-  promptAnswers.lum = lumAnswer;
-  console.log(promptAnswers);
+  promptAnswers.luminosity = luminosityAnswer;
 
   chosenHueColor = promptAnswers.color;
-  chosenLuminosity = promptAnswers.lum;
+  chosenLuminosity = promptAnswers.luminosity;
 
   renderLuminousColor();
 }
 
-process.argv[2] === 'ask' && handleAsk();
+if (process.argv[2] === 'ask') {
+  handleColorPrompt().catch(() =>
+    console.log('Something went wrong, please try again.'),
+  );
+} else if (!process.argv[2]) {
+  renderRandomColor();
+} else if (process.argv.length === 3) {
+  renderHueColor();
+} else if (process.argv.length > 3) {
+  renderLuminousColor();
+}
