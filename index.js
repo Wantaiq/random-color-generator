@@ -66,14 +66,14 @@ async function handleColorPrompt() {
     choices: ['red', 'green', 'blue'],
   });
 
-  const promptLum = new pkg.Select({
+  const promptLuminosity = new pkg.Select({
     name: 'luminosity',
     message: 'Would you like your color to be dark or light?',
     choices: ['light', 'dark'],
   });
 
   const promptColorAnswer = await promptColor.run();
-  const luminosityAnswer = await promptLum.run();
+  const luminosityAnswer = await promptLuminosity.run();
   promptAnswers.color = promptColorAnswer;
   promptAnswers.luminosity = luminosityAnswer;
 
